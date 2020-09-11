@@ -2,7 +2,7 @@ const express = require('express');
 
 const path = require('path');
 const uRouters = require('./routes/users.js');
-const cRouters = require('./controll/cards.js');
+const cRouters = require('./routes/cards.js');
 
 const { PORT = 3000 } = process.env;
 
