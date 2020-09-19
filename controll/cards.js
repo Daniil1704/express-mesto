@@ -1,4 +1,3 @@
-
 const path = require('path');
 const readFile = require('../readfile/readFile.js');
 
