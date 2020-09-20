@@ -1,7 +1,7 @@
 const path = require('path');
 const readFile = require('../readfile/readFile.js');
 
-const getUsers = (req, res) => readFile(path.join(__dirname, '..', 'data', 'user.json'))
+const getUsers = (req, res) => readFile(path.join(__dirname, '..', 'data', 'users.json'))
   .then((data) => {
     res.status(200).send(JSON.parse(data));
   })
@@ -10,7 +10,7 @@ const getUsers = (req, res) => readFile(path.join(__dirname, '..', 'data', 'user
   });
 
 const getUserById = (req, res) => {
-  readFile(path.join(__dirname, '..', 'data', 'user.json'))
+  readFile(path.join(__dirname, '..', 'data', 'users.json'))
     .then((data) => {
       const user = JSON.parse((data)).find((item) => item._id === req.params.id);
       if (!user) {
