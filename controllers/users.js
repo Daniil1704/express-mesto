@@ -1,5 +1,6 @@
 const path = require('path');
 const readFile = require('../readfile/readFile.js');
+const User = require('../models/user');
 
 const getUsers = (req, res) => readFile(path.join(__dirname, '..', 'data', 'users.json'))
   .then((data) => {
@@ -24,7 +25,20 @@ const getUserById = (req, res) => {
     });
 };
 
+const buildUser = (req, res) => {
+  const { name, about, avatar } = req.body;
+
+  User.create({ name, about, avatar })
+    .then((user) => res.status(201).send(user))
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        return res.status(400).send({ message: 'Переданы некорректные данные' });
+      }
+      return res.status(500).send({ message: 'На сервере произошла ошибка' });
+    });
+};
 module.exports = {
   getUsers,
   getUserById,
+  buildUser
 };
