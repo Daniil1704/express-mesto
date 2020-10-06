@@ -42,7 +42,12 @@ const changeUser = (req, res) => {
     new: true,
     runValidators: true,
   })
-    .then((user) => res.status(200).send(user))
+    .then((user) => {
+      if (user === null || undefined) {
+        return res.status(404).send({ message: 'Такого пользователя не существует' });
+      }
+      return res.status(200).send(user);
+    })
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return res.status(400).send({ message: 'Переданы некорректные данные' });
@@ -58,19 +63,24 @@ const changeAvatar = (req, res) => {
     new: true,
     runValidators: true,
   })
-    .then((user) => res.status(200).send(user))
+    .then((user) => {
+      if (user === null || undefined) {
+        return res.status(404).send({ message: 'Такого пользователя не существует' });
+      }
+      return res.status(200).send(user);
+    })
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return res.status(400).send({ message: 'Переданы некорректные данные' });
       }
       return res.status(500).send({ message: 'На сервере произошла ошибка' });
     });
-  };
+};
 
 module.exports = {
   getUsers,
   getUserById,
   buildUser,
   changeUser,
-  changeAvatar
+  changeAvatar,
 };
